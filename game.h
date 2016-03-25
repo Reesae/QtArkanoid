@@ -11,6 +11,7 @@
 #include "ball.h"
 #include "level.h"
 #include "settings.h"
+#include "menubutton.h"
 
 class Game: public QObject
 {
@@ -26,9 +27,12 @@ public:
     void setupBall();
     void loadLevels();
 
+    void loadMainMenu();
+
 
 public slots:
     void onBallDestroyed();
+    void onMenuButtonPressed();
 };
 
 #endif // GAME_H

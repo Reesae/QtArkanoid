@@ -1,8 +1,11 @@
 #include "game.h"
 #include <QDebug>
+#include <QFont>
+#include <QFontDatabase>
+
 Game::Game()
 {
-    QGraphicsScene *scene = new QGraphicsScene;
+    scene = new QGraphicsScene;
 
     QBrush *brush = new QBrush(QColor(230,230,230));
     scene->setBackgroundBrush(*brush);
@@ -13,12 +16,7 @@ Game::Game()
     view->show();
     view->setFixedSize(Settings::WindowWidth,Settings::WindowHeight);
     view->setSceneRect(0,0,Settings::WindowWidth,Settings::WindowHeight);
-
-
-    setupPlayer();
-    setupBall();
-    loadLevels();
-
+    loadMainMenu();
 
 }
 
@@ -73,6 +71,31 @@ void Game::loadLevels()
     }
 }
 
+void Game::loadMainMenu()
+{
+    scene = new QGraphicsScene;scene = new QGraphicsScene;
+    view->setScene(scene);
+
+    QPixmap menuBackground(":/res/menubackground.png");
+    view->scene()->setBackgroundBrush(menuBackground);
+
+    int id = QFontDatabase::addApplicationFont(":/res/block.ttf");
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont blockFont(family,32);
+
+    QGraphicsTextItem *title = new QGraphicsTextItem;
+
+    title->setPlainText(QString("QTARKANOID"));
+    title->setFont(blockFont);
+    scene->addItem(title);
+    title->setPos(Settings::WindowWidth/2 - title->boundingRect().width()/2,Settings::WindowHeight/3);
+
+    MenuButton * playButton = new MenuButton(QString("PLAY"));
+    scene->addItem(playButton);
+    playButton->setPos(Settings::WindowWidth/2 - playButton->boundingRect().width()/2,Settings::WindowHeight/2);
+    connect(playButton,&MenuButton::menuButtonPressed,this,&Game::onMenuButtonPressed);
+}
+
 
 
 void Game::onBallDestroyed()
@@ -83,6 +106,17 @@ void Game::onBallDestroyed()
     player->getLives()->decreaseLives();
     if(player->getLives()->getValue())
         setupBall();
+}
+
+void Game::onMenuButtonPressed()
+{
+    scene = new QGraphicsScene;
+    view->setScene(scene);
+
+    setupPlayer();
+    setupBall();
+    loadLevels();
+
 }
 
 
