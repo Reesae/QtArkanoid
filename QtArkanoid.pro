@@ -24,7 +24,8 @@ HEADERS  += \
     block.h \
     player.h \
     ball.h \
-    level.h
+    level.h \
+    settings.h
 
 FORMS    +=
 

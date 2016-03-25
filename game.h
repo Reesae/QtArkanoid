@@ -10,17 +10,24 @@
 #include "block.h"
 #include "ball.h"
 #include "level.h"
+#include "settings.h"
 
-class Game
+class Game:public QObject
 {
+    Q_OBJECT
 public:
     Game();
     QGraphicsView * view;
     QGraphicsScene * scene;
     Player * player;
     Level * level;
+    Ball * ball;
 
     void loadLevels();
+    void setupBall();
+    void setupPlayer();
+public slots:
+    void onBallDestroyed();
 };
 
 #endif // GAME_H

@@ -13,21 +13,12 @@ Game::Game()
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->show();
-    view->setFixedSize(800,600);
-    view->setSceneRect(0,0,800,600);
+    view->setFixedSize(Settings::WindowWidth,Settings::WindowHeight);
+    view->setSceneRect(0,0,Settings::WindowWidth,Settings::WindowHeight);
 
-    player = new Player;
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
-    scene->addItem(player);
-
-    player->setPos(view->width()/2,550);
+    setupPlayer();
     loadLevels();
-
-    Ball * ball = new Ball;
-    view->scene()->addItem(ball);
-    ball->setPos(view->width()/2 + player->boundingRect().width()/3,550 - ball->ballSize);
-
+    setupBall();
 
 }
 
@@ -43,4 +34,43 @@ void Game::loadLevels()
 
 
 }
+
+void Game::setupBall()
+{
+    ball = new Ball;
+    view->scene()->addItem(ball);
+    auto offset = 55;
+    ball->setPos(view->width()/2 + player->boundingRect().width()/3,Settings::WindowHeight - ball->ballSize - offset);
+
+    connect(ball,&Ball::ballDestroyed,this,&Game::onBallDestroyed);
+    connect(player,&Player::startBallMovement,ball,&Ball::changeMoving);
+    QTimer * timer = new QTimer();
+    connect(timer,QTimer::timeout,ball,&Ball::move);
+    timer->start(20);
+}
+
+void Game::setupPlayer()
+{
+    player = new Player;
+    player->setFlag(QGraphicsItem::ItemIsFocusable);
+    player->setFocus();
+    view->scene()->addItem(player);
+
+    auto offset = 50;
+    player->setPos(view->width()/2,Settings::WindowHeight - offset);
+
+    QTimer * timer = new QTimer();
+    connect(timer,QTimer::timeout,player,&Player::move);
+    timer->start(20);
+
+}
+
+void Game::onBallDestroyed()
+{
+    disconnect(player,&Player::startBallMovement,ball,&Ball::changeMoving);
+    delete ball;
+
+    setupBall();
+}
+
 

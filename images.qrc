@@ -1,5 +1,10 @@
 <RCC>
-    <qresource prefix="/res">
+    <qresource prefix="/">
+        <file>res/blackbrick.png</file>
+        <file>res/greenbrick.png</file>
+        <file>res/orangebrick.png</file>
+        <file>res/redbrick.png</file>
+        <file>res/yellowbrick.png</file>
         <file>res/bluebrick.png</file>
     </qresource>
 </RCC>
