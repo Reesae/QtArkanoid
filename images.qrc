@@ -6,5 +6,6 @@
         <file>res/redbrick.png</file>
         <file>res/yellowbrick.png</file>
         <file>res/bluebrick.png</file>
+        <file>res/block.ttf</file>
     </qresource>
 </RCC>
