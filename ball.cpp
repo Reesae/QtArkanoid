@@ -4,13 +4,11 @@
 #include <typeinfo>
 #include <math.h>
 
-Ball::Ball(int size):ballSize(size),moving(false)
+Ball::Ball(unsigned int size):ballSize(size),moving(false),ballSpeedModifier(8)
 {
     moveVector = std::make_pair(0.0,-1.0);
     setRect(0,0,ballSize,ballSize);
-    QBrush *brush = new QBrush();
-    brush->setStyle(Qt::SolidPattern);
-    brush->setColor(QColor(255,20,20));
+    QBrush *brush = new QBrush(QColor(255,20,20));
     setBrush(*brush);
 
 }
@@ -41,7 +39,7 @@ void Ball::checkCollisions()
             changeDirection(*item);
             if(typeid(*item) == typeid(Block))
                 static_cast<Block*>(item)->takeDamage();
-            return;
+                return;
         }
 
     }
@@ -75,8 +73,8 @@ void Ball::move()
 {
     if(moving)
     {
-        setX(x() + moveVector.first * 5);
-        setY(y() + moveVector.second * 5);
+        setX(x() + moveVector.first * ballSpeedModifier);
+        setY(y() + moveVector.second * ballSpeedModifier);
     }
 
     checkCollisions();

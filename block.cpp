@@ -7,15 +7,13 @@ Block::Block(QPoint point,BlockState lives,unsigned int width, unsigned int heig
    updateColor();
 }
 
-Block::Block()
-{
-    setPixmap(QPixmap(":/res/res/bluebrick.png"));
-}
-
 void Block::takeDamage()
 {
     if(lives != BlockState::BLACK)
+    {
         lives = static_cast<BlockState>(static_cast<unsigned int>(lives) - 1);
+        emit blockDamaged();
+    }
     if(lives == BlockState::NONE)
         delete this;
     else updateColor();
@@ -45,5 +43,6 @@ void Block::updateColor()
     case BlockState::NONE:
         break;
     }
+
 }
 

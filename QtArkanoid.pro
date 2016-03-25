@@ -17,7 +17,9 @@ SOURCES += main.cpp \
     block.cpp \
     player.cpp \
     ball.cpp \
-    level.cpp
+    level.cpp \
+    lives.cpp \
+    score.cpp
 
 HEADERS  += \
     game.h \
@@ -25,7 +27,9 @@ HEADERS  += \
     player.h \
     ball.h \
     level.h \
-    settings.h
+    settings.h \
+    lives.h \
+    score.h
 
 FORMS    +=
 

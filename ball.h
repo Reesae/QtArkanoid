@@ -11,7 +11,7 @@ class Ball: public QObject, public QGraphicsEllipseItem
 {
     Q_OBJECT
 public:
-    Ball(int size = 16);
+    Ball(unsigned int size = Settings::BallSize);
     std::pair<double,double> moveVector;
     void changeDirection(QGraphicsItem & item);
     int ballSize;
@@ -20,6 +20,8 @@ private:
     void checkCollisions();
     void isOnSceneBounds();
     void ballOffScreen();
+
+    int ballSpeedModifier;
 public slots:
     void changeMoving();
     void move();

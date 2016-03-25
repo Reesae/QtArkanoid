@@ -12,7 +12,7 @@
 #include "level.h"
 #include "settings.h"
 
-class Game:public QObject
+class Game: public QObject
 {
     Q_OBJECT
 public:
@@ -22,10 +22,11 @@ public:
     Player * player;
     Level * level;
     Ball * ball;
-
-    void loadLevels();
-    void setupBall();
     void setupPlayer();
+    void setupBall();
+    void loadLevels();
+
+
 public slots:
     void onBallDestroyed();
 };

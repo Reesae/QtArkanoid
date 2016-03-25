@@ -4,7 +4,7 @@
 #include <QGraphicsPixMapItem>
 #include <QPoint>
 #include <QBrush>
-
+#include "settings.h"
 class Block: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -12,17 +12,21 @@ class Block: public QObject, public QGraphicsPixmapItem
 public:
     enum class BlockState : unsigned int {NONE = 0,BLUE = 1,GREEN = 2,YELLOW = 3 ,ORANGE = 4,RED = 5,BLACK = 100};
 
-    Block(QPoint point, BlockState lives = BlockState::BLUE, unsigned int width = 64, unsigned int height = 32);
-    Block();
-    inline QPoint& getPoint(){return point;}
+    Block(QPoint point, BlockState lives = BlockState::BLUE,
+          unsigned int width = Settings::BlockWidth, unsigned int height = Settings::BlockHeight);
+
     void takeDamage();
-private:
+
     QPoint point;
+private:
+    void updateColor();
+
     BlockState lives;
     unsigned int blockWidth;
     unsigned int blockHeight;
+signals:
+    void blockDamaged();
 
-    void updateColor();
 
 
 };

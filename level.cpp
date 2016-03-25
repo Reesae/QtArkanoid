@@ -8,6 +8,7 @@ Level::Level(int i)
 
 void Level::loadLevel(const std::vector<Block::BlockState> &vec)
 {
+    //xdddd
     //37 is = (screenWidth- blocksPerRowe*blockWidth)/2
     QPoint start(37,100);
     const unsigned int offset = 2;
