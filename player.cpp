@@ -3,10 +3,7 @@
 
 Player::Player():isMovingRight(false),isMovingLeft(false),playerSpeedModifier(10)
 {
-    setRect(0,0,Settings::PlayerWidth,Settings::PlayerHeight);
-
-    QBrush *brush = new QBrush(QColor(20,20,20));
-    setBrush(*brush);
+    setPixmap(QPixmap(":/res/player.png"));
 
     lives = new Lives();
     score = new Score();

@@ -1,15 +1,13 @@
 #include "score.h"
+#include "utils.h"
 #include <QFont>
 #include <QFontDatabase>
-Score::Score():score("00000")
-{
-    int id = QFontDatabase::addApplicationFont(":/res/block.ttf");
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont blockFont(family);
 
+Score::Score(std::string value):score(value)
+{
     setPlainText(QString("Score:") + QString::fromStdString(score));
     setDefaultTextColor(Qt::black);
-    setFont(blockFont);
+    setFont(Utils::getCommonFont());
 }
 
 void Score::increaseScore()

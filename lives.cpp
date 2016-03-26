@@ -1,16 +1,13 @@
 #include "lives.h"
+#include "utils.h"
 #include <QFont>
 #include <QFontDatabase>
 
-Lives::Lives():value(3)
+Lives::Lives(int value):value(value)
 {
-    int id = QFontDatabase::addApplicationFont(":/res/block.ttf");
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont blockFont(family);
-
     setPlainText(QString("Lives: ") + QString::number(value));
     setDefaultTextColor(Qt::red);
-    setFont(blockFont);
+    setFont(Utils::getCommonFont());
 }
 
 void Lives::updateText()

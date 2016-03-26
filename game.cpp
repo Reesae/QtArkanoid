@@ -5,17 +5,13 @@
 
 Game::Game()
 {
-    scene = new QGraphicsScene;
-
-    QBrush *brush = new QBrush(QColor(230,230,230));
-    scene->setBackgroundBrush(*brush);
-
-    view = new QGraphicsView(scene);
+    view = new QGraphicsView;
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->show();
     view->setFixedSize(Settings::WindowWidth,Settings::WindowHeight);
     view->setSceneRect(0,0,Settings::WindowWidth,Settings::WindowHeight);
+    view->show();
+
     loadMainMenu();
 
 }
@@ -25,37 +21,37 @@ void Game::setupPlayer()
     player = new Player;
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
-    view->scene()->addItem(player);
 
     auto offset = 50;
     player->setPos(view->width()/2 - player->boundingRect().width()/2,Settings::WindowHeight - offset);
 
-    QTimer * timer = new QTimer();
+    view->scene()->addItem(player);
+
+    QTimer * timer = new QTimer;
     connect(timer,QTimer::timeout,player,&Player::move);
     timer->start(20);
 
-    view->scene()->addItem(player->getLives());
-    view->scene()->addItem(player->getScore());
-
     auto margin = 20;
     player->getLives()->setPos(margin,margin);
-    player->getScore()->setPos(Settings::WindowWidth - player->getScore()->boundingRect().width() - margin,margin);
+    player->getScore()->setPos(Settings::WindowWidth - player->getScore()->boundingRect().width(),margin);
 
+    view->scene()->addItem(player->getLives());
+    view->scene()->addItem(player->getScore());
 
 }
 
 void Game::setupBall()
 {
     ball = new Ball;
-    view->scene()->addItem(ball);
 
     auto offset = 55;
     ball->setPos(view->width()/2 - ball->ballSize/2,Settings::WindowHeight - ball->ballSize - offset);
+    view->scene()->addItem(ball);
 
     connect(ball,&Ball::ballDestroyed,this,&Game::onBallDestroyed);
     connect(player,&Player::startBallMovement,ball,&Ball::changeMoving);
 
-    QTimer * timer = new QTimer();
+    QTimer * timer = new QTimer;
     connect(timer,QTimer::timeout,ball,&Ball::move);
     timer->start(20);
 }
@@ -63,12 +59,14 @@ void Game::setupBall()
 void Game::loadLevels()
 {
     level = new Level(2);
-    for(auto b: level->blocks)
+
+    for(auto block: level->blocks)
     {
-        view->scene()->addItem(b);
-        b->setPos(b->point);
-        connect(b,&Block::blockDamaged,player,&Player::onBlockDamaged);
+        view->scene()->addItem(block);
+        block->setPos(block->point);
+        connect(block,&Block::blockDamaged,player,&Player::onBlockDamaged);
     }
+
     QPixmap levelBackground(":/res/backgrounforgame.png");
     view->scene()->setBackgroundBrush(levelBackground);
 }
@@ -78,24 +76,42 @@ void Game::loadMainMenu()
     scene = new QGraphicsScene;scene = new QGraphicsScene;
     view->setScene(scene);
 
-    QPixmap menuBackground(":/res/menubackground.png");
+    QPixmap menuBackground(":/res/backgrounforgame.png");
     view->scene()->setBackgroundBrush(menuBackground);
-
-    int id = QFontDatabase::addApplicationFont(":/res/block.ttf");
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont blockFont(family,32);
 
     QGraphicsTextItem *title = new QGraphicsTextItem;
 
     title->setPlainText(QString("QTARKANOID"));
-    title->setFont(blockFont);
+    title->setFont(Utils::getCommonFont(32));
     scene->addItem(title);
     title->setPos(Settings::WindowWidth/2 - title->boundingRect().width()/2,Settings::WindowHeight/3);
 
     MenuButton * playButton = new MenuButton(QString("PLAY"));
     scene->addItem(playButton);
     playButton->setPos(Settings::WindowWidth/2 - playButton->boundingRect().width()/2,Settings::WindowHeight/2);
-    connect(playButton,&MenuButton::menuButtonPressed,this,&Game::onMenuButtonPressed);
+    connect(playButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
+}
+
+void Game::gameOver()
+{
+    scene = new QGraphicsScene;
+    view->setScene(scene);
+
+    QPixmap menuBackground(":/res/backgrounforgame.png");
+    view->scene()->setBackgroundBrush(menuBackground);
+
+    QGraphicsTextItem *message = new QGraphicsTextItem;
+
+    message->setPlainText(QString("YOU LOSE, FELLA.\n\nYOUR SCORE: %1").arg(QString::fromStdString(player->getScore()->getScore())));
+    message->setFont(Utils::getCommonFont(26));
+    scene->addItem(message);
+    message->setPos(Settings::WindowWidth/2 - message->boundingRect().width()/2,Settings::WindowHeight/3);
+
+    MenuButton * playButton = new MenuButton(QString("PLAY AGAIN"));
+    scene->addItem(playButton);
+    playButton->setPos(Settings::WindowWidth/2 - playButton->boundingRect().width()/2,Settings::WindowHeight-playButton->boundingRect().height());
+    connect(playButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
+
 }
 
 
@@ -106,11 +122,13 @@ void Game::onBallDestroyed()
     delete ball;
 
     player->getLives()->decreaseLives();
+
     if(player->getLives()->getValue())
         setupBall();
+    else gameOver();
 }
 
-void Game::onMenuButtonPressed()
+void Game::onPlayButtonPressed()
 {
     scene = new QGraphicsScene;
     view->setScene(scene);
@@ -118,7 +136,6 @@ void Game::onMenuButtonPressed()
     setupPlayer();
     setupBall();
     loadLevels();
-
 }
 
 

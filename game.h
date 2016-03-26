@@ -12,12 +12,14 @@
 #include "level.h"
 #include "settings.h"
 #include "menubutton.h"
+#include "utils.h"
 
 class Game: public QObject
 {
     Q_OBJECT
 public:
     Game();
+private:
     QGraphicsView * view;
     QGraphicsScene * scene;
     Player * player;
@@ -26,13 +28,12 @@ public:
     void setupPlayer();
     void setupBall();
     void loadLevels();
-
     void loadMainMenu();
-
+    void gameOver();
 
 public slots:
     void onBallDestroyed();
-    void onMenuButtonPressed();
+    void onPlayButtonPressed();
 };
 
 #endif // GAME_H

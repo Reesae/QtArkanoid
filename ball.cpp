@@ -4,7 +4,7 @@
 #include <typeinfo>
 #include <math.h>
 
-Ball::Ball(unsigned int size):ballSize(size),moving(false),ballSpeedModifier(8)
+Ball::Ball(unsigned int size):ballSize(size),moving(false),ballSpeedModifier(9)
 {
     moveVector = std::make_pair(0.0,-1.0);
     setRect(0,0,ballSize,ballSize);

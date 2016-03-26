@@ -6,7 +6,7 @@
 class Lives: public QGraphicsTextItem
 {
 public:
-    Lives();
+    Lives(int value = 3);
     inline unsigned int getValue(){return value;}
     inline void decreaseLives(){value--;updateText();}
     inline void increaseLives(){value++;updateText();}

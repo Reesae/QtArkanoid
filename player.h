@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <QObject>
-#include <QGraphicsRectItem>
+#include <QGraphicsPixMapItem>
 #include <QPoint>
 #include <QBrush>
 #include <QKeyEvent>
@@ -9,7 +9,7 @@
 #include "lives.h"
 #include "settings.h"
 
-class Player: public QObject, public QGraphicsRectItem
+class Player: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 

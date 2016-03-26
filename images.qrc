@@ -9,5 +9,6 @@
         <file>res/block.ttf</file>
         <file>res/backgrounforgame.png</file>
         <file>res/menubackground.png</file>
+        <file>res/player.png</file>
     </qresource>
 </RCC>

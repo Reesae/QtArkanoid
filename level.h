@@ -4,6 +4,8 @@
 #include <vector>
 #include <memory>
 
+
+//TODO: add reading levels from file
 class Level: public QObject
 {
     Q_OBJECT

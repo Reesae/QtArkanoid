@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     level.cpp \
     lives.cpp \
     score.cpp \
-    menubutton.cpp
+    menubutton.cpp \
+    utils.cpp
 
 HEADERS  += \
     game.h \
@@ -31,7 +32,8 @@ HEADERS  += \
     settings.h \
     lives.h \
     score.h \
-    menubutton.h
+    menubutton.h \
+    utils.h
 
 FORMS    +=
 

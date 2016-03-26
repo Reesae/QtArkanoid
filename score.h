@@ -6,7 +6,7 @@
 class Score:public QGraphicsTextItem
 {
 public:
-    Score();
+    Score(std::string value = std::string("00000"));
     void increaseScore();
     inline std::string getScore(){return score;}
 private:
