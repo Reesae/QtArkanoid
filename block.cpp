@@ -1,7 +1,7 @@
 #include "block.h"
 
 
-Block::Block(QPoint point,BlockState lives,unsigned int width, unsigned int height):
+Block::Block(QPoint point,BlockColor lives,unsigned int width, unsigned int height):
     point(point),lives(lives),blockWidth(width),blockHeight(height)
 {
    updateColor();
@@ -9,12 +9,12 @@ Block::Block(QPoint point,BlockState lives,unsigned int width, unsigned int heig
 
 void Block::takeDamage()
 {
-    if(lives != BlockState::BLACK)
+    if(lives != BlockColor::BLACK)
     {
-        lives = static_cast<BlockState>(static_cast<unsigned int>(lives) - 1);
+        lives = static_cast<BlockColor>(static_cast<unsigned int>(lives) - 1);
         emit blockDamaged();
     }
-    if(lives == BlockState::NONE)
+    if(lives == BlockColor::NONE)
         delete this;
     else updateColor();
 }
@@ -22,25 +22,25 @@ void Block::takeDamage()
 void Block::updateColor()
 {
     switch(lives){
-    case BlockState::BLUE:
+    case BlockColor::BLUE:
         setPixmap(QPixmap(":/res/bluebrick.png"));
         break;
-    case BlockState::GREEN:
+    case BlockColor::GREEN:
         setPixmap(QPixmap(":/res/greenbrick.png"));
         break;
-    case BlockState::YELLOW:
+    case BlockColor::YELLOW:
         setPixmap(QPixmap(":/res/yellowbrick.png"));
         break;
-    case BlockState::ORANGE:
+    case BlockColor::ORANGE:
         setPixmap(QPixmap(":/res/orangebrick.png"));
         break;
-    case BlockState::RED:
+    case BlockColor::RED:
         setPixmap(QPixmap(":/res/redbrick.png"));
         break;
-    case BlockState::BLACK:
+    case BlockColor::BLACK:
         setPixmap(QPixmap(":/res/blackbrick.png"));
         break;
-    case BlockState::NONE:
+    case BlockColor::NONE:
         break;
     }
 

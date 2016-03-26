@@ -10,9 +10,9 @@ class Block: public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 
 public:
-    enum class BlockState : unsigned int {NONE = 0,BLUE = 1,GREEN = 2,YELLOW = 3 ,ORANGE = 4,RED = 5,BLACK = 100};
+    enum class BlockColor : unsigned int {NONE = 0,BLUE = 1,GREEN = 2,YELLOW = 3 ,ORANGE = 4,RED = 5,BLACK = 100};
 
-    Block(QPoint point, BlockState lives = BlockState::BLUE,
+    Block(QPoint point, BlockColor lives = BlockColor::BLUE,
           unsigned int width = Settings::BlockWidth, unsigned int height = Settings::BlockHeight);
 
     void takeDamage();
@@ -21,7 +21,7 @@ public:
 private:
     void updateColor();
 
-    BlockState lives;
+    BlockColor lives;
     unsigned int blockWidth;
     unsigned int blockHeight;
 signals:

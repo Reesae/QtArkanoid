@@ -66,7 +66,8 @@ void Ball::ballOffScreen()
 
 void Ball::changeMoving()
 {
-    moving = !moving;
+    if(!moving)
+        moving = true;
 }
 
 void Ball::move()

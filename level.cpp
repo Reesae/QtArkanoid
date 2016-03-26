@@ -3,26 +3,29 @@
 Level::Level(int i)
 {
     if(i == 1)
-        loadLevel(blockStateListLevel1);
+        loadLevel(BlockColorListLevel1);
+    else if (i == 2)
+        loadLevel(BlockColorListLevel2);
 }
 
-void Level::loadLevel(const std::vector<Block::BlockState> &vec)
+void Level::loadLevel(const std::vector<Block::BlockColor> &vec)
 {
-    //xdddd
-    //37 is = (screenWidth- blocksPerRowe*blockWidth)/2
-    QPoint start(37,100);
+    QPoint start(Settings::HorizontalMargin,Settings::VerticalMargin);
     const unsigned int offset = 2;
 
-    for(auto blockstate : vec)
+    for(auto color : vec)
     {
-        auto b = new Block(start,blockstate,64,32);
-        blocks.push_back(b);
-
-        start.setX(start.x() + 64 + offset);
-        if(start.x() > 750)
+        if(color != Block::BlockColor::NONE)
         {
-            start.setX(37);
-            start.setY(start.y() + 32 + offset);
+            auto b = new Block(start,color,Settings::BlockWidth,Settings::BlockHeight);
+            blocks.push_back(b);
+        }
+
+        start.setX(start.x() + Settings::BlockWidth + offset);
+        if(start.x() > Settings::WindowWidth - Settings::BlockWidth)
+        {
+            start.setX(Settings::HorizontalMargin);
+            start.setY(start.y() + Settings::BlockHeight + offset);
         }
     }
 }

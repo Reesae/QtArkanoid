@@ -11,16 +11,36 @@ public:
     Level(int i = 1);
     std::vector<Block*> blocks;
 private:
-    void loadLevel(const std::vector<Block::BlockState> & vec);
+    void loadLevel(const std::vector<Block::BlockColor> & vec);
 
-    using State = Block::BlockState;
-    const std::vector<Block::BlockState> blockStateListLevel1{
-        State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,
-        State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,
-        State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,
-        State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,
-        State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE,State::RED,State::BLUE,State::BLUE};
+    using Color = Block::BlockColor;
+    const std::vector<Block::BlockColor> BlockColorListLevel1{
+        Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,
+        Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,
+        Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,
+        Color::BLUE,Color::BLUE,Color::RED, Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE};
+
+    const std::vector<Block::BlockColor> BlockColorListLevel2{
+        Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,
+        Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,
+        Color::NONE,Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,Color::NONE,
+        Color::NONE,Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,Color::NONE,Color::YELLOW,Color::NONE,Color::NONE,Color::NONE,
+        Color::NONE,Color::NONE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::NONE,Color::NONE,
+        Color::NONE,Color::NONE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::NONE,Color::NONE,
+        Color::NONE,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::NONE,
+        Color::NONE,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::NONE,
+        Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,
+        Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,
+        Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,Color::BLUE,
+        Color::BLUE,Color::NONE,Color::BLUE,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::BLUE,Color::NONE,Color::BLUE,
+        Color::BLUE,Color::NONE,Color::BLUE,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::NONE,Color::BLUE,Color::NONE,Color::BLUE,
+        Color::NONE,Color::NONE,Color::NONE,Color::BLUE,Color::BLUE,Color::NONE,Color::BLUE,Color::BLUE,Color::NONE,Color::NONE,Color::NONE,
+        Color::NONE,Color::NONE,Color::NONE,Color::BLUE,Color::BLUE,Color::NONE,Color::BLUE,Color::BLUE,Color::NONE,Color::NONE,Color::NONE};
+
+
 };
+
+
 
 
 

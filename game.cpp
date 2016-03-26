@@ -62,13 +62,15 @@ void Game::setupBall()
 
 void Game::loadLevels()
 {
-    level = new Level(1);
+    level = new Level(2);
     for(auto b: level->blocks)
     {
         view->scene()->addItem(b);
         b->setPos(b->point);
         connect(b,&Block::blockDamaged,player,&Player::onBlockDamaged);
     }
+    QPixmap levelBackground(":/res/backgrounforgame.png");
+    view->scene()->setBackgroundBrush(levelBackground);
 }
 
 void Game::loadMainMenu()
