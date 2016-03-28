@@ -16,11 +16,11 @@ public:
     void changeDirection(QGraphicsItem & item);
     int ballSize;
 private:
-    bool moving;
     void checkCollisions();
     void isOnSceneBounds();
     void ballOffScreen();
 
+    bool moving;
     int ballSpeedModifier;
 public slots:
     void changeMoving();

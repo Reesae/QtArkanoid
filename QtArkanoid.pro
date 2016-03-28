@@ -11,7 +11,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = QtArkanoid
 TEMPLATE = app
 CONFIG += c++14
-
 SOURCES += main.cpp \
     game.cpp \
     block.cpp \
@@ -21,7 +20,9 @@ SOURCES += main.cpp \
     lives.cpp \
     score.cpp \
     menubutton.cpp \
-    utils.cpp
+    utils.cpp \
+    mainmenu.cpp \
+    summaryscreen.cpp
 
 HEADERS  += \
     game.h \
@@ -33,7 +34,9 @@ HEADERS  += \
     lives.h \
     score.h \
     menubutton.h \
-    utils.h
+    utils.h \
+    mainmenu.h \
+    summaryscreen.h
 
 FORMS    +=
 

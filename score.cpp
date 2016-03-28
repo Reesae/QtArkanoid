@@ -3,22 +3,22 @@
 #include <QFont>
 #include <QFontDatabase>
 
-Score::Score(std::string value):score(value)
+Score::Score(QString value):value(value)
 {
-    setPlainText(QString("Score:") + QString::fromStdString(score));
+    setPlainText(QString("Score:") + value);
     setDefaultTextColor(Qt::black);
     setFont(Utils::getCommonFont());
 }
 
 void Score::increaseScore()
 {
-    int temp = std::stoi(score);
-    temp+=10;
-    score = std::to_string(temp);
+    int temp = value.toInt();
+    temp += 10;
+    value = QString::number(temp);
 
-    while(score.size() < 5)
-        score = "0" + score;
+    while(value.size() < 5)
+        value = "0" + value;
 
-    setPlainText(QString("Score:") + QString::fromStdString(score));
+    setPlainText(QString("Score:") + value);
 }
 

@@ -6,11 +6,11 @@
 class Score:public QGraphicsTextItem
 {
 public:
-    Score(std::string value = std::string("00000"));
+    Score(QString value = QString("00000"));
     void increaseScore();
-    inline std::string getScore(){return score;}
+    inline QString getValue(){return value;}
 private:
-    std::string score;
+    QString value;
 };
 
 #endif // SCORE_H

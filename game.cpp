@@ -13,7 +13,6 @@ Game::Game()
     view->show();
 
     loadMainMenu();
-
 }
 
 void Game::setupPlayer()
@@ -24,7 +23,6 @@ void Game::setupPlayer()
 
     auto offset = 50;
     player->setPos(view->width()/2 - player->boundingRect().width()/2,Settings::WindowHeight - offset);
-
     view->scene()->addItem(player);
 
     QTimer * timer = new QTimer;
@@ -73,48 +71,19 @@ void Game::loadLevels()
 
 void Game::loadMainMenu()
 {
-    scene = new QGraphicsScene;scene = new QGraphicsScene;
-    view->setScene(scene);
+    mainMenu = new MainMenu;
+    view->setScene(mainMenu);
 
-    QPixmap menuBackground(":/res/backgrounforgame.png");
-    view->scene()->setBackgroundBrush(menuBackground);
-
-    QGraphicsTextItem *title = new QGraphicsTextItem;
-
-    title->setPlainText(QString("QTARKANOID"));
-    title->setFont(Utils::getCommonFont(32));
-    scene->addItem(title);
-    title->setPos(Settings::WindowWidth/2 - title->boundingRect().width()/2,Settings::WindowHeight/3);
-
-    MenuButton * playButton = new MenuButton(QString("PLAY"));
-    scene->addItem(playButton);
-    playButton->setPos(Settings::WindowWidth/2 - playButton->boundingRect().width()/2,Settings::WindowHeight/2);
-    connect(playButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
+    connect(mainMenu->playButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
 }
 
 void Game::gameOver()
 {
-    scene = new QGraphicsScene;
-    view->setScene(scene);
+    summaryScreen = new SummaryScreen(player->getScore()->getValue());
+    view->setScene(summaryScreen);
 
-    QPixmap menuBackground(":/res/backgrounforgame.png");
-    view->scene()->setBackgroundBrush(menuBackground);
-
-    QGraphicsTextItem *message = new QGraphicsTextItem;
-
-    message->setPlainText(QString("YOU LOSE, FELLA.\n\nYOUR SCORE: %1").arg(QString::fromStdString(player->getScore()->getScore())));
-    message->setFont(Utils::getCommonFont(26));
-    scene->addItem(message);
-    message->setPos(Settings::WindowWidth/2 - message->boundingRect().width()/2,Settings::WindowHeight/3);
-
-    MenuButton * playButton = new MenuButton(QString("PLAY AGAIN"));
-    scene->addItem(playButton);
-    playButton->setPos(Settings::WindowWidth/2 - playButton->boundingRect().width()/2,Settings::WindowHeight-playButton->boundingRect().height());
-    connect(playButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
-
+    connect(summaryScreen->playAgainButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
 }
-
-
 
 void Game::onBallDestroyed()
 {

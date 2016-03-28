@@ -13,7 +13,8 @@
 #include "settings.h"
 #include "menubutton.h"
 #include "utils.h"
-
+#include "mainmenu.h"
+#include "summaryscreen.h"
 class Game: public QObject
 {
     Q_OBJECT
@@ -25,6 +26,8 @@ private:
     Player * player;
     Level * level;
     Ball * ball;
+    MainMenu * mainMenu;
+    SummaryScreen * summaryScreen;
     void setupPlayer();
     void setupBall();
     void loadLevels();
