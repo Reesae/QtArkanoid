@@ -75,6 +75,9 @@ void Game::loadMainMenu()
     view->setScene(mainMenu);
 
     connect(mainMenu->playButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
+    connect(mainMenu->quitButton,&MenuButton::menuButtonPressed,this,&Game::onQuitButtonPressed);
+    connect(mainMenu->rightNavigationButton,&MenuButton::menuButtonPressed,this,&Game::onNavigationButtonPressed);
+    connect(mainMenu->leftNavigationButton,&MenuButton::menuButtonPressed,this,&Game::onNavigationButtonPressed);
 }
 
 void Game::gameOver()
@@ -105,6 +108,25 @@ void Game::onPlayButtonPressed()
     setupPlayer();
     setupBall();
     loadLevels();
+}
+
+void Game::onQuitButtonPressed()
+{
+    emit closeApplication();
+}
+
+void Game::onNavigationButtonPressed()
+{
+    if(mainMenu->playButton->isVisible())
+    {
+        mainMenu->playButton->setVisible(false);
+        mainMenu->quitButton->setVisible(true);
+    }
+    else if (mainMenu->quitButton->isVisible())
+    {
+        mainMenu->playButton->setVisible(true);
+        mainMenu->quitButton->setVisible(false);
+    }
 }
 
 

@@ -7,10 +7,7 @@
 Ball::Ball(unsigned int size):ballSize(size),moving(false),ballSpeedModifier(9)
 {
     moveVector = std::make_pair(0.0,-1.0);
-    setRect(0,0,ballSize,ballSize);
-    QBrush *brush = new QBrush(QColor(255,20,20));
-    setBrush(*brush);
-
+    setPixmap(QPixmap(":/res/ball.png"));
 }
 
 void Ball::changeDirection(QGraphicsItem &item)

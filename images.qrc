@@ -10,5 +10,6 @@
         <file>res/backgrounforgame.png</file>
         <file>res/menubackground.png</file>
         <file>res/player.png</file>
+        <file>res/ball.png</file>
     </qresource>
 </RCC>

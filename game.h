@@ -37,6 +37,10 @@ private:
 public slots:
     void onBallDestroyed();
     void onPlayButtonPressed();
+    void onQuitButtonPressed();
+    void onNavigationButtonPressed();
+signals:
+    void closeApplication();
 };
 
 #endif // GAME_H

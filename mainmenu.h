@@ -13,6 +13,7 @@ public:
     MenuButton * playButton;
     MenuButton * leftNavigationButton;
     MenuButton * rightNavigationButton;
+    MenuButton * quitButton;
 
 };
 

@@ -2,12 +2,12 @@
 #define BALL_H
 #include <utility>
 #include <QObject>
-#include <QGraphicsEllipseItem>
+#include <QGraphicsPixmapItem>
 #include "block.h"
 #include "player.h"
 #include "settings.h"
 
-class Ball: public QObject, public QGraphicsEllipseItem
+class Ball: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:

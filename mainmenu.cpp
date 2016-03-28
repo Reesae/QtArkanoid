@@ -23,5 +23,11 @@ MainMenu::MainMenu()
     rightNavigationButton->setPos(Settings::WindowWidth/2 + offset,Settings::WindowHeight/2);
     addItem(leftNavigationButton);
     addItem(rightNavigationButton);
+
+    quitButton = new MenuButton(QString("QUIT"));
+    addItem(quitButton);
+    quitButton->setPos(Settings::WindowWidth/2 - playButton->boundingRect().width()/2,Settings::WindowHeight/2);
+    quitButton->setVisible(false);
+
 }
 
