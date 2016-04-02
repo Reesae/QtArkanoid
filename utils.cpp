@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <QPixmap>
 
 namespace Utils {
 
@@ -9,4 +10,5 @@ namespace Utils {
     QFont blockFont(family,fontSize);
     return blockFont;
 }
+
 }

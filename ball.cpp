@@ -23,7 +23,6 @@ void Ball::changeDirection(QGraphicsItem &item)
          moveVector.second = -1.0;
     else if(blockPoint.y() + itemHeight < ballPoint.y())
          moveVector.second = 1.0  ;
-
 }
 
 void Ball::checkCollisions()
@@ -36,11 +35,8 @@ void Ball::checkCollisions()
             changeDirection(*item);
             if(typeid(*item) == typeid(Block))
                 static_cast<Block*>(item)->takeDamage();
-                return;
         }
-
     }
-
 }
 
 void Ball::isOnSceneBounds()
@@ -53,7 +49,6 @@ void Ball::isOnSceneBounds()
         moveVector.second *= -1.0;
     else if(y() > Settings::WindowHeight)
         ballOffScreen();
-
 }
 
 void Ball::ballOffScreen()

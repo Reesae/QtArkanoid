@@ -7,7 +7,12 @@ Player::Player():isMovingRight(false),isMovingLeft(false),playerSpeedModifier(10
 
     lives = new Lives();
     score = new Score();
+}
 
+Player::~Player()
+{
+    delete lives;
+    delete score;
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -54,8 +59,4 @@ void Player::move()
 
 }
 
-void Player::onBlockDamaged()
-{
-    score->increaseScore();
-}
 

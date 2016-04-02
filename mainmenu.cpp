@@ -5,7 +5,7 @@ MainMenu::MainMenu()
     QPixmap menuBackground(":/res/backgrounforgame.png");
     setBackgroundBrush(menuBackground);
 
-    QGraphicsTextItem *title = new QGraphicsTextItem;
+    title = new QGraphicsTextItem;
     title->setPlainText(QString("QTARKANOID"));
     title->setFont(Utils::getCommonFont(32));
     title->setPos(Settings::WindowWidth/2 - title->boundingRect().width()/2,Settings::WindowHeight/3);
@@ -29,5 +29,14 @@ MainMenu::MainMenu()
     quitButton->setPos(Settings::WindowWidth/2 - playButton->boundingRect().width()/2,Settings::WindowHeight/2);
     quitButton->setVisible(false);
 
+}
+
+MainMenu::~MainMenu()
+{
+    delete quitButton;
+    delete leftNavigationButton;
+    delete rightNavigationButton;
+    delete playButton;
+    delete title;
 }
 

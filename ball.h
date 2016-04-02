@@ -14,6 +14,7 @@ public:
     Ball(unsigned int size = Settings::BallSize);
     std::pair<double,double> moveVector;
     void changeDirection(QGraphicsItem & item);
+    inline void destroyBall(){delete this;}
     int ballSize;
 private:
     void checkCollisions();

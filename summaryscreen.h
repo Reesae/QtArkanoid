@@ -4,13 +4,16 @@
 #include "menubutton.h"
 #include "utils.h"
 #include <QGraphicsScene>
+#include <QPointer>
 
 class SummaryScreen: public QGraphicsScene
 {
 public:
     SummaryScreen(QString score);
-    QGraphicsTextItem * message;
-    MenuButton * playAgainButton;
+    ~SummaryScreen();
+    QPointer<QGraphicsTextItem> message;
+    QPointer<MenuButton> playAgainButton;
+    void updateScore(QString score);
 };
 
 #endif // SUMMARYSCREEN_H

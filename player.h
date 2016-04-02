@@ -5,6 +5,7 @@
 #include <QPoint>
 #include <QBrush>
 #include <QKeyEvent>
+#include <QPointer>
 #include "score.h"
 #include "lives.h"
 #include "settings.h"
@@ -15,7 +16,7 @@ class Player: public QObject, public QGraphicsPixmapItem
 
 public:
     Player();
-
+    ~Player();
     Lives* getLives(){return lives;}
     Score* getScore(){return score;}
 private:
@@ -23,13 +24,12 @@ private:
     bool isMovingLeft;
 
     int playerSpeedModifier;
-    Lives* lives;
-    Score* score;
+    QPointer<Lives> lives;
+    QPointer<Score> score;
 public slots:
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
     void move();
-    void onBlockDamaged();
 signals:
     void startBallMovement();
 };

@@ -5,6 +5,7 @@
 
 class Lives: public QGraphicsTextItem
 {
+    Q_OBJECT
 public:
     Lives(int value = 3);
     inline unsigned int getValue(){return value;}

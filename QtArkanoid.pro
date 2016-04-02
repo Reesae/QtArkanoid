@@ -11,6 +11,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = QtArkanoid
 TEMPLATE = app
 CONFIG += c++14
+
+QMAKE_CXXFLAGS += -static-libgcc
+QMAKE_CXXFLAGS += -static-libstdc++
+QMAKE_CXXFLAGS += -ggdb
+QMAKE_CXXFLAGS += -O
+
 SOURCES += main.cpp \
     game.cpp \
     block.cpp \

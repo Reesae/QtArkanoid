@@ -6,6 +6,19 @@ Level::Level(int i)
         loadLevel(BlockColorListLevel1);
     else if (i == 2)
         loadLevel(BlockColorListLevel2);
+    else loadLevel(level3);
+}
+
+Level::~Level()
+{
+    destroyBlocks();
+}
+
+void Level::destroyBlocks()
+{
+    for(QPointer<Block> block : blocks)
+        delete block;
+    blocks.erase(blocks.begin(),blocks.end());
 }
 
 void Level::loadLevel(const std::vector<Block::BlockColor> &vec)
@@ -22,7 +35,7 @@ void Level::loadLevel(const std::vector<Block::BlockColor> &vec)
         }
 
         start.setX(start.x() + Settings::BlockWidth + offset);
-        if(start.x() > Settings::WindowWidth - Settings::BlockWidth)
+        if(static_cast<unsigned int>(start.x()) > Settings::WindowWidth - Settings::BlockWidth)
         {
             start.setX(Settings::HorizontalMargin);
             start.setY(start.y() + Settings::BlockHeight + offset);

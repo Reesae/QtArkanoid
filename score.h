@@ -5,6 +5,7 @@
 
 class Score:public QGraphicsTextItem
 {
+    Q_OBJECT
 public:
     Score(QString value = QString("00000"));
     void increaseScore();

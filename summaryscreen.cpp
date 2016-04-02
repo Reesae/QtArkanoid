@@ -17,3 +17,14 @@ SummaryScreen::SummaryScreen(QString score)
     addItem(playAgainButton);
 }
 
+SummaryScreen::~SummaryScreen()
+{
+    delete playAgainButton;
+    delete message;
+}
+
+void SummaryScreen::updateScore(QString score)
+{
+      message->setPlainText(QString("YOU LOSE, FELLA.\n\nYOUR SCORE: %1").arg(score));
+}
+

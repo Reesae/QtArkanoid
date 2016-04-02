@@ -6,6 +6,7 @@
 #include <QGraphicsView>
 #include <QTimer>
 #include <QObject>
+#include <QPointer>
 #include "player.h"
 #include "block.h"
 #include "ball.h"
@@ -15,19 +16,18 @@
 #include "utils.h"
 #include "mainmenu.h"
 #include "summaryscreen.h"
-class Game: public QObject
+
+class Game: public QGraphicsView
 {
     Q_OBJECT
 public:
     Game();
 private:
-    QGraphicsView * view;
-    QGraphicsScene * scene;
-    Player * player;
+    QPointer<Player> player;
     Level * level;
-    Ball * ball;
-    MainMenu * mainMenu;
-    SummaryScreen * summaryScreen;
+    QPointer<Ball> ball;
+    QPointer<MainMenu> mainMenu;
+    QPointer<SummaryScreen> summaryScreen;
     void setupPlayer();
     void setupBall();
     void loadLevels();
@@ -39,6 +39,8 @@ public slots:
     void onPlayButtonPressed();
     void onQuitButtonPressed();
     void onNavigationButtonPressed();
+    void mouseDoubleClickEvent(QMouseEvent *event);
+    void onBlockDamaged();
 signals:
     void closeApplication();
 };

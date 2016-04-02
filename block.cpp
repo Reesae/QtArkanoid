@@ -21,6 +21,7 @@ void Block::takeDamage()
 
 void Block::updateColor()
 {
+
     switch(lives){
     case BlockColor::BLUE:
         setPixmap(QPixmap(":/res/bluebrick.png"));

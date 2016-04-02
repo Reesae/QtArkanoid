@@ -3,6 +3,7 @@
 #include "settings.h"
 #include "menubutton.h"
 #include "utils.h"
+#include <QPointer>
 #include <QGraphicsScene>
 
 class MainMenu:public QGraphicsScene
@@ -10,10 +11,12 @@ class MainMenu:public QGraphicsScene
     Q_OBJECT
 public:
     MainMenu();
-    MenuButton * playButton;
-    MenuButton * leftNavigationButton;
-    MenuButton * rightNavigationButton;
-    MenuButton * quitButton;
+    ~MainMenu();
+    QPointer<QGraphicsTextItem> title;
+    QPointer<MenuButton> playButton;
+    QPointer<MenuButton> leftNavigationButton;
+    QPointer<MenuButton> rightNavigationButton;
+    QPointer<MenuButton> quitButton;
 
 };
 
