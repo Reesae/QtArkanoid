@@ -3,7 +3,7 @@
 #include <QFont>
 #include <QFontDatabase>
 
-Game::Game():QGraphicsView()
+Game::Game():QGraphicsView(),generator()
 {
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -13,7 +13,6 @@ Game::Game():QGraphicsView()
     show();
     loadMainMenu();
 }
-
 void Game::setupPlayer()
 {
     player = new Player;
@@ -61,6 +60,7 @@ void Game::loadLevels()
         scene()->addItem(block);
         block->setPos(block->point);
         connect(block,&Block::blockDamaged,this,&Game::onBlockDamaged);
+        connect(block,&Block::blockDamaged,this,&Game::spawnPlayerPowerUp);
     }
     QPixmap menuBackground(":/res/backgrounforgame.png");
     setBackgroundBrush(menuBackground);
@@ -143,4 +143,22 @@ void Game::mouseDoubleClickEvent(QMouseEvent *event)
 void Game::onBlockDamaged()
 {
     player->getScore()->increaseScore();
+}
+
+void Game::spawnPlayerPowerUp()
+{
+    int rand = generator.getRandomInt(1,6);
+    if(rand == 1)
+    {
+        PlayerPowerUp * p = new PlayerPowerUp(PlayerPowerType::LARGE_PAD);
+        p->setPos(ball->x(),ball->y()-16);
+        scene()->addItem(p);
+    }
+    else if(rand == 2)
+    {
+        PlayerPowerUp * p = new PlayerPowerUp(PlayerPowerType::SMALL_PAD);
+        p->setPos(ball->x(),ball->y()-16);
+        scene()->addItem(p);
+    }
+
 }

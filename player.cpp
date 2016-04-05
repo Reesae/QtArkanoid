@@ -1,7 +1,8 @@
 #include "player.h"
+#include "playerpowerup.h"
 #include <QDebug>
 
-Player::Player():isMovingRight(false),isMovingLeft(false),playerSpeedModifier(10)
+Player::Player():isMovingRight(false),isMovingLeft(false),playerSpeedModifier(10),power(PlayerPowerType::NONE)
 {
     setPixmap(QPixmap(":/res/player.png"));
 
@@ -13,6 +14,16 @@ Player::~Player()
 {
     delete lives;
     delete score;
+}
+
+void Player::checkCollisions()
+{
+    QList<QGraphicsItem*> collidingObjects = collidingItems();
+    foreach(QGraphicsItem* item,collidingObjects)
+    {
+        if(typeid(*item)== typeid(PlayerPowerUp))
+            static_cast<PlayerPowerUp*>(item)->activate(this);
+    }
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -56,6 +67,7 @@ void Player::move()
             setX(x() + playerSpeedModifier);
 
     }
+    checkCollisions();
 
 }
 

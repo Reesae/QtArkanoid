@@ -11,5 +11,7 @@
         <file>res/menubackground.png</file>
         <file>res/player.png</file>
         <file>res/ball.png</file>
+        <file>res/largeplayer.png</file>
+        <file>res/smallplayer.png</file>
     </qresource>
 </RCC>

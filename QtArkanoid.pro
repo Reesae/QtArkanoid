@@ -28,7 +28,10 @@ SOURCES += main.cpp \
     menubutton.cpp \
     utils.cpp \
     mainmenu.cpp \
-    summaryscreen.cpp
+    summaryscreen.cpp \
+    powerup.cpp \
+    playerpowerup.cpp \
+    randomnumbergenerator.cpp
 
 HEADERS  += \
     game.h \
@@ -42,7 +45,10 @@ HEADERS  += \
     menubutton.h \
     utils.h \
     mainmenu.h \
-    summaryscreen.h
+    summaryscreen.h \
+    powerup.h \
+    playerpowerup.h \
+    randomnumbergenerator.h
 
 FORMS    +=
 

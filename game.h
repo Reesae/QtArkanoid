@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QObject>
 #include <QPointer>
+#include <random>
 #include "player.h"
 #include "block.h"
 #include "ball.h"
@@ -16,7 +17,8 @@
 #include "utils.h"
 #include "mainmenu.h"
 #include "summaryscreen.h"
-
+#include "playerpowerup.h"
+#include "randomnumbergenerator.h"
 class Game: public QGraphicsView
 {
     Q_OBJECT
@@ -28,12 +30,12 @@ private:
     QPointer<Ball> ball;
     QPointer<MainMenu> mainMenu;
     QPointer<SummaryScreen> summaryScreen;
+    RandomNumberGenerator  generator;
     void setupPlayer();
     void setupBall();
     void loadLevels();
     void loadMainMenu();
     void gameOver();
-
 public slots:
     void onBallDestroyed();
     void onPlayButtonPressed();
@@ -41,6 +43,7 @@ public slots:
     void onNavigationButtonPressed();
     void mouseDoubleClickEvent(QMouseEvent *event);
     void onBlockDamaged();
+    void spawnPlayerPowerUp();
 signals:
     void closeApplication();
 };

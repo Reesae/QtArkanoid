@@ -45,7 +45,7 @@ void Ball::isOnSceneBounds()
         moveVector.first *= -1.0;
     else if(x() > Settings::WindowWidth - ballSize)
         moveVector.first *= -1.0;
-    else if(y() < ballSize)
+    if(y() < ballSize)
         moveVector.second *= -1.0;
     else if(y() > Settings::WindowHeight)
         ballOffScreen();
