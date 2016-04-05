@@ -1,9 +1,11 @@
 #ifndef LEVEL_H
 #define LEVEL_H
-#include "block.h"
 #include <vector>
 #include <memory>
-#include <QPointer>
+#include "utils.h"
+#include "block.h"
+
+
 
 //TODO: add reading levels from file
 class Level
@@ -15,6 +17,8 @@ public:
 private:
     void loadLevel(const std::vector<Block::BlockColor> & vec);
     void destroyBlocks();
+
+
     using Color = Block::BlockColor;
     const std::vector<Block::BlockColor> BlockColorListLevel1{
         Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,Color::RED,Color::BLUE,Color::BLUE,

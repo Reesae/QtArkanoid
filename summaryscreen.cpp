@@ -8,7 +8,7 @@ SummaryScreen::SummaryScreen(QString score)
     message = new QGraphicsTextItem;
 
     message->setPlainText(QString("YOU LOSE, FELLA.\n\nYOUR SCORE: %1").arg(score));
-    message->setFont(Utils::getCommonFont(26));
+    message->setFont(Utils::getCommonFont(Settings::MenuFontSize));
     message->setPos(Settings::WindowWidth/2 - message->boundingRect().width()/2,Settings::WindowHeight/3);
     addItem(message);
 
@@ -27,4 +27,3 @@ void SummaryScreen::updateScore(QString score)
 {
       message->setPlainText(QString("YOU LOSE, FELLA.\n\nYOUR SCORE: %1").arg(score));
 }
-

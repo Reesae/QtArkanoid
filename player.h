@@ -1,11 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include <QObject>
-#include <QGraphicsPixMapItem>
-#include <QPoint>
-#include <QBrush>
 #include <QKeyEvent>
-#include <QPointer>
 #include <typeinfo>
 #include "score.h"
 #include "lives.h"
@@ -13,6 +8,7 @@
 
 class PlayerPowerUp;
 enum class PlayerPowerType:unsigned int;
+
 class Player: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -20,18 +16,21 @@ class Player: public QObject, public QGraphicsPixmapItem
 public:
     Player();
     ~Player();
-    inline Lives* getLives(){return lives;}
-    inline Score* getScore(){return score;}
-    inline int getPower(){return static_cast<int>(power);}
+    inline QPointer<Lives> getLives(){return lives;}
+    inline QPointer<Score> getScore(){return score;}
+    inline PlayerPowerType getPower(){return power;}
 private:
-    bool isMovingRight;
-    bool isMovingLeft;
+    bool isOnScreenBounds();
+    void checkCollisions();
 
-    int playerSpeedModifier;
     QPointer<Lives> lives;
     QPointer<Score> score;
+    QPointer<QTimer> moveTimer;
     PlayerPowerType power;
-    void checkCollisions();
+
+    bool isMovingRight;
+    bool isMovingLeft;
+    int playerSpeedModifier;
 public slots:
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);

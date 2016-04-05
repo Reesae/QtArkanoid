@@ -3,15 +3,18 @@
 #include "settings.h"
 #include "menubutton.h"
 #include "utils.h"
-#include <QPointer>
-#include <QGraphicsScene>
+#include "game.h"
 
+class Game;
 class MainMenu:public QGraphicsScene
 {
     Q_OBJECT
 public:
     MainMenu();
     ~MainMenu();
+    void connectMenuControls(Game * game);
+    void getNextMenuItem();
+private:
     QPointer<QGraphicsTextItem> title;
     QPointer<MenuButton> playButton;
     QPointer<MenuButton> leftNavigationButton;

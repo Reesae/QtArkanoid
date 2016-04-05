@@ -40,3 +40,25 @@ MainMenu::~MainMenu()
     delete title;
 }
 
+void MainMenu::connectMenuControls(Game *game)
+{
+    connect(playButton,&MenuButton::menuButtonPressed,game,&Game::onPlayButtonPressed);
+    connect(quitButton,&MenuButton::menuButtonPressed,game,&Game::onQuitButtonPressed);
+    connect(rightNavigationButton,&MenuButton::menuButtonPressed,game,&Game::onNavigationButtonPressed);
+    connect(leftNavigationButton,&MenuButton::menuButtonPressed,game,&Game::onNavigationButtonPressed);
+}
+
+void MainMenu::getNextMenuItem()
+{
+    if(playButton->isVisible())
+    {
+        playButton->setVisible(false);
+        quitButton->setVisible(true);
+    }
+    else if (quitButton->isVisible())
+    {
+        playButton->setVisible(true);
+        quitButton->setVisible(false);
+    }
+}
+

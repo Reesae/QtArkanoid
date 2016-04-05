@@ -1,7 +1,6 @@
 #include "score.h"
 #include "utils.h"
-#include <QFont>
-#include <QFontDatabase>
+#include "settings.h"
 
 Score::Score(QString value):value(value)
 {
@@ -10,15 +9,19 @@ Score::Score(QString value):value(value)
     setFont(Utils::getCommonFont());
 }
 
-void Score::increaseScore()
+void Score::increaseScore(int points)
 {
-    int temp = value.toInt();
-    temp += 10;
-    value = QString::number(temp);
-
+    addIntToScore(points);
     while(value.size() < 5)
         value = "0" + value;
 
     setPlainText(QString("Score:") + value);
+}
+
+void Score::addIntToScore(int a)
+{
+    int temp = value.toInt();
+    temp += a;
+    value = QString::number(temp);
 }
 

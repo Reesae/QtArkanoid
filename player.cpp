@@ -2,71 +2,73 @@
 #include "playerpowerup.h"
 #include <QDebug>
 
-Player::Player():isMovingRight(false),isMovingLeft(false),playerSpeedModifier(10),power(PlayerPowerType::NONE)
+Player::Player():moveTimer(nullptr),power(PlayerPowerType::NONE),isMovingRight(false),isMovingLeft(false),playerSpeedModifier(10)
 {
     setPixmap(QPixmap(":/res/player.png"));
 
     lives = new Lives();
     score = new Score();
+
+    moveTimer = new QTimer(this);
+    connect(moveTimer,QTimer::timeout,this,&Player::move);
+    moveTimer->start(20);
+
 }
 
 Player::~Player()
 {
-    delete lives;
     delete score;
+    delete lives;
+}
+
+
+void Player::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Left)
+        isMovingLeft = isOnScreenBounds() ? true : false;
+
+    else if(event->key() == Qt::Key_Right)
+        isMovingRight = isOnScreenBounds() ? true : false;
+
+    else if(event->key() == Qt::Key_Space)
+        emit startBallMovement();
+}
+
+void Player::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Left)
+        isMovingLeft = false;
+    else if(event->key() == Qt::Key_Right)
+        isMovingRight = false;
+}
+
+bool Player::isOnScreenBounds()
+{
+    if(pos().x() > 0 && pos().x() < Settings::WindowWidth - boundingRect().width())
+        return true;
+    else return false;
 }
 
 void Player::checkCollisions()
 {
     QList<QGraphicsItem*> collidingObjects = collidingItems();
-    foreach(QGraphicsItem* item,collidingObjects)
+    for(QGraphicsItem* item : collidingObjects)
     {
         if(typeid(*item)== typeid(PlayerPowerUp))
             static_cast<PlayerPowerUp*>(item)->activate(this);
     }
 }
 
-void Player::keyPressEvent(QKeyEvent *event)
-{
-    if(event->key()== Qt::Key_Left)
-    {
-         if(pos().x() > 0)
-            isMovingLeft = true;
-    }
-    else if(event->key()== Qt::Key_Right)
-    {
-         if(pos().x() < Settings::WindowWidth - boundingRect().width())
-            isMovingRight = true;
-    }
-    else if(event->key()== Qt::Key_Space)
-    {
-         emit startBallMovement();
-    }
-
-}
-
-void Player::keyReleaseEvent(QKeyEvent *event)
-{
-    if(event->key()== Qt::Key_Left)
-         isMovingLeft = false;
-    else if(event->key()== Qt::Key_Right)
-         isMovingRight = false;
-
-}
-
 void Player::move()
 {
     if(isMovingLeft)
-    {
-        if(x() > 0)
+        if(isOnScreenBounds())
            setX(x() - playerSpeedModifier);
-    }
-    else if(isMovingRight)
-    {
-        if(x() < Settings::WindowWidth - boundingRect().width())
+
+    if(isMovingRight)
+        if(isOnScreenBounds())
             setX(x() + playerSpeedModifier);
 
-    }
     checkCollisions();
 
 }

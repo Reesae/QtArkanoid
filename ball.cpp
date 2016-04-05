@@ -3,11 +3,16 @@
 #include <QDebug>
 #include <typeinfo>
 #include <math.h>
+#include <QTimer>
 
-Ball::Ball(unsigned int size):ballSize(size),moving(false),ballSpeedModifier(9)
+Ball::Ball(unsigned int size):ballSize(size),moveTimer(nullptr),isMoving(false),ballSpeedModifier(Settings::BallSpeed)
 {
     moveVector = std::make_pair(0.0,-1.0);
     setPixmap(QPixmap(":/res/ball.png"));
+
+    moveTimer = new QTimer(this);
+    connect(moveTimer,QTimer::timeout,this,&Ball::move);
+    moveTimer->start(20);
 }
 
 void Ball::changeDirection(QGraphicsItem &item)
@@ -22,13 +27,13 @@ void Ball::changeDirection(QGraphicsItem &item)
     if(blockPoint.y() > ballPoint.y())
          moveVector.second = -1.0;
     else if(blockPoint.y() + itemHeight < ballPoint.y())
-         moveVector.second = 1.0  ;
+         moveVector.second = 1.0;
 }
 
 void Ball::checkCollisions()
 {
     QList<QGraphicsItem*> collidingObjects = collidingItems();
-    foreach(QGraphicsItem* item,collidingObjects)
+    for(QGraphicsItem* item : collidingObjects)
     {
         if(typeid(*item)== typeid(Block) || typeid(*item) == typeid(Player))
         {
@@ -58,13 +63,13 @@ void Ball::ballOffScreen()
 
 void Ball::changeMoving()
 {
-    if(!moving)
-        moving = true;
+    if(!isMoving)
+        isMoving = true;
 }
 
 void Ball::move()
 {
-    if(moving)
+    if(isMoving)
     {
         setX(x() + moveVector.first * ballSpeedModifier);
         setY(y() + moveVector.second * ballSpeedModifier);

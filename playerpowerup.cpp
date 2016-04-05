@@ -33,13 +33,14 @@ void PlayerPowerUp::activate(Player * p)
 
 void PlayerPowerUp::deactivate()
 {
-    player->setPixmap(QPixmap(":/res/player.png"));
+    if(player->getPower() == PlayerPowerType::LARGE_PAD || player->getPower() == PlayerPowerType::SMALL_PAD)
+        player->setPixmap(QPixmap(":/res/player.png"));
     delete this;
 }
 
 void PlayerPowerUp::move()
 {
-    setPos(x(),y() + 15);
+    setPos(x(),y() + 5);
 }
 
 void PlayerPowerUp::startTimer(const int duration)

@@ -1,12 +1,8 @@
 #ifndef BLOCK_H
 #define BLOCK_H
-#include <QObject>
-#include <QGraphicsPixMapItem>
-#include <QPoint>
-#include <QBrush>
-#include <QDebug>
-#include <QPointer>
+#include "utils.h"
 #include "settings.h"
+
 class Block: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -17,17 +13,16 @@ public:
     Block(QPoint point, BlockColor lives = BlockColor::BLUE,
           unsigned int width = Settings::BlockWidth, unsigned int height = Settings::BlockHeight);
     void takeDamage();
+
     QPoint point;
 private:
     void updateColor();
+
     BlockColor lives;
     unsigned int blockWidth;
     unsigned int blockHeight;
 signals:
     void blockDamaged();
-
-
-
 
 };
 

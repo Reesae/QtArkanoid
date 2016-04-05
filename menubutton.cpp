@@ -1,12 +1,11 @@
 #include "menubutton.h"
+#include "utils.h"
+#include "settings.h"
 
 MenuButton::MenuButton(QString title)
 {
-    int id = QFontDatabase::addApplicationFont(":/res/block.ttf");
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont blockFont(family,32);
     setPlainText(title);
-    setFont(blockFont);
+    setFont(Utils::getCommonFont(Settings::MenuButtonFontSize));
 }
 
 void MenuButton::mousePressEvent(QGraphicsSceneMouseEvent *event)

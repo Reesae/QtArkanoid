@@ -1,10 +1,6 @@
 #ifndef POWERUP_H
 #define POWERUP_H
-#include <QString>
-#include <QObject>
-#include <QGraphicsPixmapItem>
-#include <QTimer>
-#include <QPointer>
+#include "utils.h"
 #include "player.h"
 
 class Player;

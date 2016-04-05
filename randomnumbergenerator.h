@@ -2,7 +2,6 @@
 #define RANDOMNUMBERGENERATOR_H
 #include <random>
 
-
 class RandomNumberGenerator
 {
 public:

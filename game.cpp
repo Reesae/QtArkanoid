@@ -5,13 +5,12 @@
 
 Game::Game():QGraphicsView(),generator()
 {
-
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(Settings::WindowWidth,Settings::WindowHeight);
     setSceneRect(0,0,Settings::WindowWidth,Settings::WindowHeight);
-    show();
     loadMainMenu();
+    show();
 }
 void Game::setupPlayer()
 {
@@ -22,17 +21,12 @@ void Game::setupPlayer()
     player->setPos(width()/2 - player->boundingRect().width()/2,Settings::WindowHeight - offset);
     scene()->addItem(player);
 
-    QTimer * timer = new QTimer(player);
-    connect(timer,QTimer::timeout,player,&Player::move);
-    timer->start(20);
-
     auto margin = 20;
     player->getLives()->setPos(margin,margin);
     player->getScore()->setPos(Settings::WindowWidth - player->getScore()->boundingRect().width(),margin);
 
     scene()->addItem(player->getLives());
     scene()->addItem(player->getScore());
-
 }
 
 void Game::setupBall()
@@ -45,15 +39,11 @@ void Game::setupBall()
 
     connect(ball,&Ball::ballDestroyed,this,&Game::onBallDestroyed);
     connect(player,&Player::startBallMovement,ball,&Ball::changeMoving);
-
-    QTimer * timer = new QTimer(ball);
-    connect(timer,QTimer::timeout,ball,&Ball::move);
-    timer->start(20);
 }
 
 void Game::loadLevels()
 {   
-    level = new Level(3);
+    level = new Level(2);
 
     for(auto block: level->blocks)
     {
@@ -71,11 +61,7 @@ void Game::loadMainMenu()
     if(mainMenu.isNull())
        mainMenu = new MainMenu;
     setScene(mainMenu);
-
-    connect(mainMenu->playButton,&MenuButton::menuButtonPressed,this,&Game::onPlayButtonPressed);
-    connect(mainMenu->quitButton,&MenuButton::menuButtonPressed,this,&Game::onQuitButtonPressed);
-    connect(mainMenu->rightNavigationButton,&MenuButton::menuButtonPressed,this,&Game::onNavigationButtonPressed);
-    connect(mainMenu->leftNavigationButton,&MenuButton::menuButtonPressed,this,&Game::onNavigationButtonPressed);
+    mainMenu->connectMenuControls(this);
 }
 
 void Game::gameOver()
@@ -123,16 +109,7 @@ void Game::onQuitButtonPressed()
 
 void Game::onNavigationButtonPressed()
 {
-    if(mainMenu->playButton->isVisible())
-    {
-        mainMenu->playButton->setVisible(false);
-        mainMenu->quitButton->setVisible(true);
-    }
-    else if (mainMenu->quitButton->isVisible())
-    {
-        mainMenu->playButton->setVisible(true);
-        mainMenu->quitButton->setVisible(false);
-    }
+    mainMenu->getNextMenuItem();
 }
 
 void Game::mouseDoubleClickEvent(QMouseEvent *event)
@@ -142,7 +119,7 @@ void Game::mouseDoubleClickEvent(QMouseEvent *event)
 
 void Game::onBlockDamaged()
 {
-    player->getScore()->increaseScore();
+    player->getScore()->increaseScore(Settings::BlockPointsPerDmg);
 }
 
 void Game::spawnPlayerPowerUp()

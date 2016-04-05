@@ -3,8 +3,6 @@
 #include "settings.h"
 #include "menubutton.h"
 #include "utils.h"
-#include <QGraphicsScene>
-#include <QPointer>
 
 class SummaryScreen: public QGraphicsScene
 {

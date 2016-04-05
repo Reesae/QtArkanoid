@@ -1,9 +1,6 @@
 #ifndef MENUBUTTON_H
 #define MENUBUTTON_H
-#include <QObject>
-#include <QGraphicsTextItem>
-#include <QFont>
-#include <QFontDatabase>
+#include "utils.h"
 #include <QGraphicsSceneMouseEvent>
 
 class MenuButton:public QGraphicsTextItem

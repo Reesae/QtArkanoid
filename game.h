@@ -2,12 +2,7 @@
 #define GAME_H
 #include <QGraphicsItem>
 #include <QGraphicsScene>
-#include <QGraphicsRectItem>
 #include <QGraphicsView>
-#include <QTimer>
-#include <QObject>
-#include <QPointer>
-#include <random>
 #include "player.h"
 #include "block.h"
 #include "ball.h"
@@ -19,6 +14,8 @@
 #include "summaryscreen.h"
 #include "playerpowerup.h"
 #include "randomnumbergenerator.h"
+
+class MainMenu;
 class Game: public QGraphicsView
 {
     Q_OBJECT
@@ -30,7 +27,8 @@ private:
     QPointer<Ball> ball;
     QPointer<MainMenu> mainMenu;
     QPointer<SummaryScreen> summaryScreen;
-    RandomNumberGenerator  generator;
+    RandomNumberGenerator generator;
+
     void setupPlayer();
     void setupBall();
     void loadLevels();
